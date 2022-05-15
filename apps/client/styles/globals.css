@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap');
+:root {
+  /* button-size */
+  --button-size-small: 3rem;
+  --button-size-large: 5rem;
+  --button-text-small: 1.3rem;
+  --button-text-large: 2.4rem;
+
+  /* avatar-size */
+  --avatar-size-xsmall: 3rem;
+  --avatar-size-small: 4rem;
+  --avatar-size-medium: 4.8rem;
+  --avatar-size-large: 6.4rem;
+  --avatar-size-xlarge: 9.6rem;
+
+  /* square-card-size */
+  --square-card-size-xsmall: 4rem;
+  --square-card-size-small: 10rem;
+  --square-card-size-medium: 12rem;
+  --square-card-size-large: 15rem;
+  --square-card-size-xlarge: 22.5rem;
+
+  /* border-radius */
+  --border-radius-none: 0;
+  --border-radius-small: 0.2rem;
+  --border-radius-medium: 0.4rem;
+  --border-radius-large: 0.6rem;
+  --border-radius-extra-large: 1rem;
+  --border-radius-super-extra-large: 1.6rem;
+  --border-radius-super-mega-extra-large: 3rem;
+  --border-radius-rounded: 9000px;
+
+  /* color */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-red: #eb0400;
+  --color-green: #2dba4e;
+  --color-magenta: #9856ed;
+  --color-transparent: transparent;
+  --color-telele-orange: #ffc600;
+  --color-telele-orange-1: #090701;
+  --color-telele-orange-2: #1c1703;
+  --color-telele-orange-3: #2e2504;
+  --color-telele-orange-4: #4e3f09;
+  --color-telele-orange-5: #6e590c;
+  --color-telele-orange-6: #937710; /*navigation_focus*/
+  --color-telele-orange-7: #c59f16;
+  --color-telele-orange-8: #e8bf2c;
+  --color-telele-orange-9: #ffc600; /*primary*/
+  --color-telele-orange-10: #ffe070; /*info*/
+  --color-telele-orange-11: #ffe894; /*secondary*/
+  --color-telele-orange-12: #ffefb3; /*text_tertiary*/
+  --color-telele-orange-13: #fff5d1;
+  --color-telele-orange-14: #fff9e5;
+  --color-telele-orange-15: #fffefa;
+  --color-grey-1: #0e1010;
+  --color-grey-2: #181b1b;
+  --color-grey-3: #1f2223; /*navigation*/
+  --color-grey-4: #262b2c; /*background*/
+  --color-grey-5: #323839; /*card*/
+  --color-grey-6: #3b4344; /*input*/
+  --color-grey-7: #535d5f; /*line*/
+  --color-grey-8: #849194; /*text_secondary*/
+  --color-grey-9: #adb6b8;
+  --color-grey-10: #c8cfd0;
+  --color-grey-11: #d3d8d9;
+  --color-grey-12: #dee2e3;
+  --color-grey-13: #e6e9ea;
+  --color-grey-14: #eff1f1;
+  --color-grey-15: #f7f8f8;
+  --color-red-1: #050101;
+  --color-red-2: #120202;
+  --color-red-3: #200404;
+  --color-red-4: #3c0807;
+  --color-red-5: #530a09;
+  --color-red-6: #6e0e0c;
+  --color-red-7: #971311;
+  --color-red-8: #bb1411;
+  --color-red-9: #eb0400;
+  --color-red-10: #ff4f4d;
+  --color-red-11: #ff8280;
+  --color-red-12: #ffaaa8;
+  --color-red-13: #ffcdcc;
+  --color-red-14: #ffe6e5;
+  --color-red-15: snow;
+  --color-opac-b-1: rgba(0, 0, 0, 0.05);
+  --color-opac-b-2: rgba(0, 0, 0, 0.1);
+  --color-opac-b-3: rgba(0, 0, 0, 0.15);
+  --color-opac-b-4: rgba(0, 0, 0, 0.2);
+  --color-opac-b-5: rgba(0, 0, 0, 0.25);
+  --color-opac-b-6: rgba(0, 0, 0, 0.3);
+  --color-opac-b-7: rgba(0, 0, 0, 0.4);
+  --color-opac-b-8: rgba(0, 0, 0, 0.5);
+  --color-opac-b-9: rgba(0, 0, 0, 0.6);
+  --color-opac-b-10: rgba(0, 0, 0, 0.7);
+  --color-opac-b-11: rgba(0, 0, 0, 0.75);
+  --color-opac-b-12: rgba(0, 0, 0, 0.8);
+  --color-opac-b-13: rgba(0, 0, 0, 0.85);
+  --color-opac-b-14: rgba(0, 0, 0, 0.9);
+  --color-opac-b-15: rgba(0, 0, 0, 0.95);
+  --color-opac-w-1: hsla(0, 0%, 100%, 0.05);
+  --color-opac-w-2: hsla(0, 0%, 100%, 0.1);
+  --color-opac-w-3: hsla(0, 0%, 100%, 0.15);
+  --color-opac-w-4: hsla(0, 0%, 100%, 0.2);
+  --color-opac-w-5: hsla(0, 0%, 100%, 0.25);
+  --color-opac-w-6: hsla(0, 0%, 100%, 0.3);
+  --color-opac-w-7: hsla(0, 0%, 100%, 0.4);
+  --color-opac-w-8: hsla(0, 0%, 100%, 0.5);
+  --color-opac-w-9: hsla(0, 0%, 100%, 0.6);
+  --color-opac-w-10: hsla(0, 0%, 100%, 0.7);
+  --color-opac-w-11: hsla(0, 0%, 100%, 0.75);
+  --color-opac-w-12: hsla(0, 0%, 100%, 0.8);
+  --color-opac-w-13: hsla(0, 0%, 100%, 0.85);
+  --color-opac-w-14: hsla(0, 0%, 100%, 0.9);
+  --color-opac-w-15: hsla(0, 0%, 100%, 0.95);
+  --color-twitter: #3f91c2;
+  --color-discord: #5865f2;
+
+  /* font-family */
+  --font-base: 'Noto Sans JP', -apple-system, 'BlinkMacSystemFont', 'Hiragino Kaku Gothic ProN',
+    'Hiragino Sans', Meiryo, sans-serif, 'Segoe UI Emoji';
+
+  /* font-size */
+  --font-size-1: 5.4rem;
+  --font-size-2: 3.6rem;
+  --font-size-3: 3.2rem;
+  --font-size-4: 2.4rem;
+  --font-size-5: 1.8rem;
+  --font-size-6: 1.6rem;
+  --font-size-7: 1.4rem;
+  --font-size-8: 1.3rem;
+  --font-size-9: 1.2rem;
+  --font-size-base: 1.6rem;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 700;
+
+  /* line-height */
+  --line-height-body: 1.5;
+  --line-height-heading: 1.2;
+
+  /* z-index */
+  --z-index-modal: 5000;
+  --z-index-notification: 4000;
+  --z-index-overlay: 3000;
+  --z-index-balloon: 2000;
+  --z-index-sticky: 1000;
+  --z-index-above: 10;
+  --z-index-default: 1;
+  --z-index-below: -1;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: 62.5%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--color-background-body);
+  color: var(--color-text-base);
+  font-family: var(--font-base);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+
+body[data-theme='light'] {
+  /* button */
+  --color-background-button-filled: var(--color-telele-orange);
+  --color-background-button-filled-hover: var(--color-telele-orange-8);
+  --color-background-button-filled-active: var(--color-telele-orange-7);
+  --color-text-button-filled: var(--color-grey-1);
+  --color-border-dashed-button: var(--color-grey-7);
+  --color-background-button-disabled: var(--color-opac-b-8);
+  --color-background-button-outlined: var(--color-transparent);
+  --color-border-button-outlined: var(--color-telele-orange-11);
+  --color-border-button-outlined-hover: var(--color-telele-orange-10);
+  --color-border-button-outlined-active: var(--color-telele-orange-9);
+  --color-text-button-outlined: var(--color-telele-orange-11);
+  --color-text-button-outlined-hover: var(--color-telele-orange-10);
+  --color-text-button-outlined-active: var(--color-telele-orange-9);
+  --color-text-button-disabled: var(--color-opac-b-6);
+
+  /* tag */
+  --color-background-tag: var(--color-telele-orange-11);
+  --color-background-tag-hover: var(--color-telele-orange-10);
+  --color-border-tag: var(--color-telele-orange-11);
+  --color-border-tag-hover: var(--color-telele-orange-10);
+  --color-text-tag-filled: var(--color-grey-4);
+  --color-text-tag-outlined: var(--color-telele-orange-11);
+  --color-text-tag-outlined-hover: var(--color-telele-orange-10);
+
+  /* body */
+  --color-background-body: var(--color-grey-10);
+  --color-background-base: var(--color-white);
+  --color-background-accent: var(--color-telele-orange-8);
+
+  /* focus */
+  --color-outline-focused: var(--color-grey-1);
+
+  /* tooltip */
+  --color-background-tooltip: var(--color-grey-1);
+  --color-text-tooltip: var(--color-white);
+
+  /* switch */
+  --color-background-toggle-handle: var(--color-grey-1);
+  --color-background-toggle-handle-checked: var(--color-telele-orange);
+  --color-border-toggle: var(--color-opac-b-9);
+  --color-border-toggle-hover: var(--color-grey-1);
+  --color-border-toggle-checked: var(--color-telele-orange-9);
+  --color-border-toggle-checked-hover: var(--color-telele-orange-8);
+  --color-text-toggle-checked-icon: var(--color-telele-orange);
+
+  /* mouseover */
+  --color-background-interactable-hover: var(--color-opac-b-2);
+  --color-background-interactable-active: var(--color-opac-b-6);
+
+  /* font */
+  --color-text-base: var(--color-grey-1);
+  --color-text-alt: var(--color-grey-7);
+
+  /* card */
+  --color-card: var(--color-grey-14);
+  --color-card-gradient: var(--color-opac-w-1);
+  --color-card-avatar-primer: var(--color-grey-14);
+
+  /* input */
+  --color-input-background: var(--color-opac-b-2);
+  --color-input-hover: var(--color-opac-b-4);
+  --color-input-focus: var(--color-white);
+
+  /* svg */
+  --color-fill-button-icon: var(--color-opac-b-8);
+  --color-fill-button-icon-hover: var(--color-telele-orange);
+
+  /* shadow */
+  --shadow-elevation-1: 0 1px 2px var(--color-opac-b-3), 0 0px 2px var(--color-opac-b-2);
+  --shadow-elevation-2: 0 4px 8px var(--color-opac-b-4), 0 0px 4px var(--color-opac-b-1);
+  --shadow-elevation-3: 0 6px 16px var(--color-opac-b-4), 0 0px 4px var(--color-opac-b-1);
+  --shadow-elevation-4: 0 12px 32px var(--color-opac-b-4), 0 0px 8px var(--color-opac-b-1);
+  --shadow-elevation-5: 0 32px 64px var(--color-opac-b-4), 0 0px 16px var(--color-opac-b-1);
+}
+
+body[data-theme='dark'] {
+  /* button */
+  --color-background-button-filled: var(--color-telele-orange);
+  --color-background-button-filled-hover: var(--color-telele-orange-10);
+  --color-background-button-filled-active: var(--color-telele-orange);
+  --color-text-button-filled: var(--color-grey-1);
+  --color-border-dashed-button: var(--color-grey-8);
+  --color-background-button-disabled: var(--color-opac-w-3);
+  --color-background-button-outlined: var(--color-transparent);
+  --color-border-button-outlined: var(--color-telele-orange-11);
+  --color-border-button-outlined-hover: var(--color-telele-orange-12);
+  --color-border-button-outlined-active: var(--color-telele-orange-13);
+  --color-text-button-outlined: var(--color-telele-orange-11);
+  --color-text-button-outlined-hover: var(--color-telele-orange-12);
+  --color-text-button-outlined-active: var(--color-telele-orange-13);
+  --color-text-button-disabled: var(--color-opac-w-8);
+
+  /* tag */
+  --color-background-tag: var(--color-telele-orange-11);
+  --color-background-tag-hover: var(--color-telele-orange-12);
+  --color-border-tag: var(--color-telele-orange-11);
+  --color-border-tag-hover: var(--color-telele-orange-12);
+  --color-text-tag-filled: var(--color-grey-4);
+  --color-text-tag-outlined: var(--color-telele-orange-11);
+  --color-text-tag-outlined-hover: var(--color-telele-orange-12);
+
+  /* body */
+  --color-background-body: var(--color-grey-4);
+  --color-background-base: var(--color-grey-3);
+  --color-background-accent: var(--color-telele-orange-8);
+
+  /* focus */
+  --color-outline-focused: var(--color-white);
+
+  /* tooltip */
+  --color-background-tooltip: var(--color-white);
+  --color-text-tooltip: var(--color-grey-3);
+
+  /* switch */
+  --color-background-toggle-handle: var(--color-white);
+  --color-background-toggle-handle-checked: var(--color-telele-orange);
+  --color-border-toggle: var(--color-opac-w-10);
+  --color-border-toggle-hover: var(--color-white);
+  --color-border-toggle-checked: var(--color-telele-orange-9);
+  --color-border-toggle-checked-hover: var(--color-telele-orange-10);
+  --color-text-toggle-checked-icon: var(--color-telele-orange);
+
+  /* mouseover */
+  --color-background-interactable-hover: var(--color-opac-w-2);
+  --color-background-interactable-active: var(--color-opac-w-6);
+
+  /* font */
+  --color-text-base: var(--color-white);
+  --color-text-alt: var(--color-grey-8);
+
+  /* card */
+  --color-card: var(--color-grey-5);
+  --color-card-gradient: var(--color-opac-b-1);
+  --color-card-avatar-primer: var(--color-grey-5);
+
+  /* input */
+  --color-input-background: var(--color-grey-6);
+  --color-input-hover: var(--color-grey-7);
+  --color-input-focus: var(--color-grey-3);
+
+  /* svg */
+  --color-fill-button-icon: var(--color-opac-w-8);
+  --color-fill-button-icon-hover: var(--color-telele-orange);
+
+  /* shadows */
+  --shadow-elevation-1: 0 1px 2px var(--color-opac-b-14), 0 0px 2px var(--color-opac-b-14);
+  --shadow-elevation-2: 0 4px 8px var(--color-opac-b-7), 0 0px 4px var(--color-opac-b-7);
+  --shadow-elevation-3: 0 6px 16px var(--color-opac-b-8), 0 0px 4px var(--color-opac-b-7);
+  --shadow-elevation-4: 0 12px 32px var(--color-opac-b-8), 0 0px 8px var(--color-opac-b-7);
+  --shadow-elevation-5: 0 32px 64px var(--color-opac-b-9), 0 0px 16px var(--color-opac-b-7);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-telele-orange);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--color-background-accent);
+  color: var(--color-white);
+}
+
+/* Firefox */
+::-moz-selection {
+  background: var(--color-background-accent);
+  color: var(--color-white);
+}
+
+/* hタグ使うときはここに必要なhタグとその値を追記していってください。 */
+
+h3 {
+  font-size: var(--font-size-4);
+}
+
+h4 {
+  font-size: var(--font-size-5);
+}
+
+p {
+  font-size: var(--font-size-8);
+  line-height: var(--line-height-body);
+}

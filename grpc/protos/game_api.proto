@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package telele.api;
+
+import "telele/type/game.proto";
+// import "telele/type/publisher.proto";
+
+service GameApi {
+  rpc GetGame   (GetGameRequest)  returns   (telele.type.Game) {}
+  rpc ListGame (ListGameRequest) returns  (ListGameResponse) {}
+  rpc ListGamePagination (ListGamePaginationRequest) returns (ListGamePaginationResponse) {}
+  // rpc GetPublisher (GetGameRequest) returns (Game) {}
+  // rpc ListPublishers (ListGamesRequest) returns (Games) {}
+}
+
+message GameIds {
+  repeated int32 ids = 1;
+}
+
+message GameTitles {
+  repeated string titles = 1;
+}
+
+message GetGameRequest {
+  int32 id = 1;
+}
+
+message ListGameRequest {
+  oneof search_option {
+    GameIds    game_ids     = 1;
+    GameTitles game_titles  = 2;
+  }
+}
+
+message ListGameResponse {
+  repeated telele.type.Game games = 1;
+}
+
+message ListGamePaginationRequest {
+  int32   skip  = 1;
+  int32   first = 2;
+  string  after = 3;
+
+}
+message ListGamePaginationResponse {
+  repeated telele.type.Game games = 1;
+}

@@ -1,0 +1,230 @@
+syntax = "proto3";
+
+import "telele/type/tag.proto";
+import "telele/type/tag_category.proto";
+import "telele/type/game_tag.proto";
+import "telele/type/user_tag.proto";
+import "telele/type/party_tag.proto";
+
+import "google/protobuf/empty.proto";
+
+package telele.api;
+
+/** 
+ * TagApiはtag-serviceにある `Tag` , `TagCategory` , `GameTag` , `UserTag`, `PartyTag` を返します
+ * `UserTag`, `PartyTag` はそれぞれ作成、削除が可能です 
+ */
+service TagApi {
+  
+  // -------------------------------------------------------------------------
+  // Tag
+  // -------------------------------------------------------------------------
+
+  // ユニークなフィールドを1つ受け取ってTagを1つ返します
+  rpc GetTag    (GetTagRequest)   returns (telele.type.Tag) {}
+  // 与えられた引数に応じてTagの配列を返します
+  rpc ListTag  (ListTagRequest) returns (ListTagResponse) {}
+
+  rpc BatchListTagByGameId(BatchListTagByGameIdRequest) returns (BatchListTagByGameIdResponse) {}
+
+  // -------------------------------------------------------------------------
+  // TagCategory
+  // -------------------------------------------------------------------------
+
+  // ユニークなフィールドを1つ受け取ってTagCategoryを1つ返します
+  rpc GetTagCategory    (GetTagCategoryRequest)     returns (telele.type.TagCategory) {}
+  // 与えられた引数に応じてTagCategoryの配列を返します
+  rpc ListTagCategories (ListTagCategoriesRequest)  returns (ListTagCategoriesResponse) {}
+
+  // -------------------------------------------------------------------------
+  // GameTag
+  // -------------------------------------------------------------------------
+
+  // 与えられた引数に応じてGameTagの配列を返します
+  rpc ListGameTags (ListGameTagsRequest) returns (ListGameTagsResponse) {}
+
+  // -------------------------------------------------------------------------
+  // UserTag
+  // -------------------------------------------------------------------------
+
+  // 与えられた引数に応じてUserTagの配列を返します
+  rpc ListUserTags  (ListUserTagsRequest)   returns (ListUserTagsResponse) {}
+  // userIdとtag_idを受け取って新しいUserTagを作成します
+  rpc CreateUserTag (CreateUserTagRequest)  returns (google.protobuf.Empty) {}
+  // userIdとtag_idから成る結合キーに一致するUserTagを1つ削除します
+  rpc DeleteUserTag (DeleteUserTagRequest)  returns (google.protobuf.Empty) {}
+
+  // -------------------------------------------------------------------------
+  // PartyTag
+  // -------------------------------------------------------------------------
+
+  // 与えられた引数に応じてPartyTagの配列を返します
+  rpc ListPartyTags  (ListPartyTagsRequest)   returns (ListPartyTagsResponse) {}
+  // party_idとtag_idを受け取って新しいPartyTagを作成します
+  rpc CreatePartyTag (CreatePartyTagRequest)  returns (google.protobuf.Empty) {}
+  // party_idとtag_idから成る結合キーに一致するPartyTagを1つ削除します
+  rpc DeletePartyTag (DeletePartyTagRequest)  returns (google.protobuf.Empty) {}
+}
+
+message Ids {
+  repeated int32 ids = 1;
+}
+
+message Names {
+  repeated string names = 1;
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してTagを返します
+ *  - id   tag_idを受け取ります、これはユニークなフィールドです
+ *  - name tag_nameを受け取ります、これはユニークなフィールドです
+ */
+message GetTagRequest {
+  oneof search_option {
+    int32   id    = 1;
+    string  name  = 2;
+  }
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してTagの配列を返します
+ *  - tag_ids           tag_idの配列を受け取ります、これはユニークなフィールドです
+ *  - tag_names         tag_namesの配列を受け取ります、これはユニークなフィールドです
+ *  - tag_category_id   tag_category_idを受け取ります 
+ *  - tag_category_name tag_category_nameを受け取ります
+ *  - game_id           game_idを受け取ります
+ */
+message ListTagRequest {
+  oneof search_option {
+    Ids     tag_ids           = 1;
+    Names   tag_names         = 2;
+    int32   tag_category_id   = 3;
+    string  tag_category_name = 4;
+    int32   game_id           = 5;
+  }
+}
+message ListTagResponse {
+  repeated telele.type.Tag tags = 1;
+}
+
+message BatchListTagByGameIdRequest {
+  repeated int32 game_ids = 1;
+}
+message BatchListTagByGameIdResponse {
+  repeated Tags list_tags = 1;
+}
+message Tags {
+  repeated telele.type.Tag tags = 1;
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してTagCategoryを返します
+ *  - id   tag_category_idを受け取ります、これはユニークなフィールドです
+ *  - name tag_category_nameを受け取ります、これはユニークなフィールドです
+ */
+message GetTagCategoryRequest {
+  oneof search_option {
+    int32   id    = 1;
+    string  name  = 2;
+  }
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してTagCategoryの配列を返します
+ *  - tag_category_ids    tag_category_idsの配列を受け取ります、これはユニークなフィールドです
+ *  - tag_category_names  tag_category_namesの配列を受け取ります、これはユニークなフィールドです
+ */
+message ListTagCategoriesRequest {
+  oneof search_option {
+    Ids   tag_category_ids    = 1;
+    Names tag_category_names  = 2;
+  }
+}
+message ListTagCategoriesResponse {
+  repeated telele.type.TagCategory tag_categories = 1;
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してGameTagの配列を返します
+ *  - gameId　gameIdを受け取ります
+ *  - tag_id　 tag_idを受け取ります
+ */
+message ListGameTagsRequest {
+  oneof search_option {
+    int32 game_id = 1;
+    int32 tag_id  = 2;
+  }
+}
+message ListGameTagsResponse {
+  repeated telele.type.GameTag game_tags = 1;
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してUserTagの配列を返します
+ *  - user_id　user_idを受け取ります
+ *  - tag_id　 tag_idを受け取ります
+ */
+message ListUserTagsRequest {
+  oneof search_option {
+    string  user_id  = 1;
+    int32   tag_id   = 2;
+  }
+}
+message ListUserTagsResponse {
+  repeated telele.type.UserTag user_tags = 1;
+}
+
+/**
+ * user_idとtag_idを受け取って新しいUserTagを1つ作成します
+ *  - user_id　user_idを受け取ります
+ *  - tag_id　 tag_idを受け取ります
+ */
+message CreateUserTagRequest {
+  string  user_id = 1;
+  int32   tag_id  = 2;
+}
+
+/**
+ * user_idとtag_idから成る結合キーに一致するUserTagを1つ削除します
+ *  - user_id　user_idを受け取ります
+ *  - tag_id　 tag_idを受け取ります
+ */
+message DeleteUserTagRequest {
+  string  user_id = 1;
+  int32   tag_id  = 2;
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してPartyTagの配列を返します
+ *  - party_id　party_idを受け取ります
+ *  - tag_id　  tag_idを受け取ります
+ */
+message ListPartyTagsRequest {
+  oneof search_option {
+    int32 party_id  = 1;
+    int32 tag_id    = 2;
+  }
+}
+message ListPartyTagsResponse {
+  repeated telele.type.PartyTag party_tags = 1;
+}
+
+/**
+ * party_idとtag_idを受け取って新しいPartyTagを1つ作成します
+ *  - party_id　party_idを受け取ります
+ *  - tag_id　 tag_idを受け取ります
+ */
+ message CreatePartyTagRequest {
+  int32 party_id = 1;
+  int32 tag_id   = 2;
+}
+
+/**
+ * party_idとtag_idから成る結合キーに一致するPartyTagを1つ削除します
+ *  - party_id　party_idを受け取ります
+ *  - tag_id　 tag_idを受け取ります
+ */
+message DeletePartyTagRequest {
+  int32 party_id = 1;
+  int32 tag_id   = 2;
+}

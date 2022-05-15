@@ -1,0 +1,55 @@
+version: '3'
+services:
+  telele_game_db:
+    build: .
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: telele_game
+    tty: true
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  telele_tag_db:
+    build: .
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: telele_tag
+    tty: true
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  telele_profile_db:
+    build: .
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: telele_profile
+    tty: true
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  telele_party_db:
+    build: .
+    ports:
+      - 5436:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: telele_party
+    tty: true
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

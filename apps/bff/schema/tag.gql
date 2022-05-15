@@ -1,0 +1,23 @@
+scalar Date
+
+type Query {
+  getTag(tagId: Int, tagName: String): Tag
+  listTag(
+    tagIds: [Int]
+    tagNames: [String]
+    tagCategoryId: Int
+    tagCategoryName: String
+    gameId: Int
+  ): [Tag]!
+}
+
+type Tag {
+  id: String!
+  languageCode: String!
+  name: String!
+  tagCategoryId: String!
+  tagCategoryName: String!
+  createdAt: Date!
+  updatedAt: Date!
+  deletedAt: Date
+}

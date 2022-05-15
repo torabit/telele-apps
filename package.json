@@ -1,0 +1,22 @@
+{
+  "name": "telele-apps",
+  "version": "0.0.1",
+  "repository": "git@github.com:telele-team/telele-apps.git",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/**/*"
+    ],
+    "nohoist": []
+  },
+  "scripts": {
+    "client": "yarn workspace @telele/client",
+    "bff": "yarn workspace @telele/bff",
+    "game-service": "yarn workspace @telele/game-service",
+    "tag-service": "yarn workspace @telele/tag-service",
+    "profile-service": "yarn workspace @telele/profile-service",
+    "party-service": "yarn workspace @telele/party-service",
+    "prisma:generate:all": "yarn profile-service prisma generate && yarn tag-service prisma generate && yarn game-service prisma generate && yarn party-service prisma generate"
+  },
+  "devDependencies": {}
+}

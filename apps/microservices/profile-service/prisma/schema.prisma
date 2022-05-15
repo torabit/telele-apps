@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../node_modules/@prisma/client_profile"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id            String    @db.VarChar(30)   @default(cuid()) @id @unique
+  userId        String    @db.VarChar(16)   @unique
+  name          String    @db.VarChar(50)
+  genderId      Int       @default(0)
+  personalColor String    @db.VarChar(6)    @default("ffc600")
+  biography     String    @db.VarChar(1000) @default("")
+  birthday      DateTime? @db.Date()
+  startTime     DateTime? @db.Time()
+  endTime       DateTime? @db.Time()
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now())   @updatedAt
+  deletedAt     DateTime?
+  profileIcon   ProfileIcon?
+  followGame    FollowGame[]
+  followUser    FollowUser[]
+}
+
+model ProfileIcon {
+  profileId String    @db.VarChar(30) @id
+  path      String    @db.VarChar(256)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+  profile   Profile?  @relation(fields: [profileId], references: [id])
+}
+
+model FollowGame {
+  userId    String    @db.VarChar(16)
+  gameId    Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+  profile   Profile?  @relation(fields: [userId], references: [userId])
+  @@id([userId, gameId])
+}
+
+model FollowUser {
+  userId        String    @db.VarChar(16)
+  followUserId  String    @db.VarChar(16)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  deletedAt     DateTime?
+  profile       Profile?  @relation(fields: [userId], references: [userId])
+  @@id([userId, followUserId])
+}
+
+model Gender {
+  genderId  Int       @default(autoincrement()) @id @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())           @updatedAt
+  deletedAt DateTime?
+}

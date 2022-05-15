@@ -1,0 +1,9 @@
+.mouse-over {
+  transition: 0.1s;
+}
+.mouse-over:hover {
+  background-color: var(--color-background-interactable-hover);
+}
+.mouse-over:active {
+  background-color: var(--color-background-interactable-active);
+}

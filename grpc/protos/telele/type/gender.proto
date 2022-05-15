@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package telele.type;
+
+enum Sex {
+  SEX_UNKNOWN = 0;
+  MALE        = 1;
+  FEMALE      = 2;
+  OTHER       = 3;
+}

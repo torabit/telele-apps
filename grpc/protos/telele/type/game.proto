@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package telele.type;
+
+import "google/protobuf/timestamp.proto";
+
+message Game {
+  int32                     id              = 1;
+  string                    language_code   = 2;
+  string                    title           = 3;
+  int32                     publisherId     = 4;
+  string                    description     = 5;
+  google.protobuf.Timestamp release_date    = 6;
+  google.protobuf.Timestamp created_at      = 7;
+  google.protobuf.Timestamp updated_at      = 8;
+  google.protobuf.Timestamp deleted_at      = 9;
+  optional string           publisher_name  = 10;
+  optional string           game_icon_path  = 11;
+}

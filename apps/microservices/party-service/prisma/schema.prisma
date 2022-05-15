@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../node_modules/@prisma/client_party"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Party {
+  id            Int       @default(autoincrement()) @id @unique
+  userId        String    @db.VarChar(16)
+  gameId        Int
+  voipTagId     Int?
+  title         String    @db.VarChar(32)
+  content       String    @db.VarChar(500)
+  memberLimit   Int
+  closedAt      DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  deletedAt     DateTime?
+  partyMessage  PartyMessage[]
+  partyMember   PartyMember[]
+}
+
+model PartyMessage {
+  id          Int       @default(autoincrement()) @id @unique
+  partyId     Int
+  userId      String    @db.VarChar(16)
+  messageBody String    @db.VarChar(200)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  deletedAt   DateTime?
+  party       Party     @relation(fields: [partyId], references: [id])
+}
+
+model PartyMember {
+  partyId   Int
+  userId    String    @db.VarChar(16)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+  party     Party     @relation(fields: [partyId], references: [id])
+  @@id([partyId, userId])
+}

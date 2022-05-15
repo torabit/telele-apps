@@ -1,0 +1,37 @@
+scalar Date
+
+type Query {
+  getGame(gameId: Int): Game
+  listGame(gameIds: [Int], gameTitles: [String]): [Game]
+  listGamePagination(first: Int, after: String): ListGamePaginationResponse
+}
+
+type Game {
+  id: String!
+  languageCode: String!
+  title: String!
+  publisherId: String!
+  description: String!
+  createdAt: Date!
+  updatedAt: Date!
+  deletedAt: Date
+  publisherName: String
+  gameIconPath: String
+  tags: [Tag]
+  followersQuantity: String
+}
+
+type Edge {
+  cursor: String!
+  node: Game!
+}
+
+type PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+}
+
+type ListGamePaginationResponse {
+  edges: [Edge!]!
+  pageInfo: PageInfo!
+}

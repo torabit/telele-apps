@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package telele.type;
+
+import "telele/type/gender.proto";
+import "telele/type/follow_game.proto";
+
+import "google/protobuf/timestamp.proto";
+import "google/type/date.proto";
+import "google/type/color.proto";
+import "google/type/timeofday.proto";
+
+message Profile {
+  string                    id                = 1;
+  string                    user_id           = 2;
+  string                    name              = 3;
+  telele.type.Sex           gender_id         = 4;
+  google.type.Color         personal_color    = 5;
+  string                    biography         = 6;
+  google.type.Date          birthday          = 7;
+  google.type.TimeOfDay     start_time        = 8;
+  google.type.TimeOfDay     end_time          = 9;
+  google.protobuf.Timestamp created_at        = 10;
+  google.protobuf.Timestamp updated_at        = 11;
+  google.protobuf.Timestamp deleted_at        = 12;
+  optional string           profile_icon_path = 13;
+}
+
+message UserMetadata {
+  string          user_id           = 1;
+  string          name              = 2;
+  optional string profile_icon_path = 3;
+}
+
+message DogTag {
+  string                  user_id           = 1;
+  string                  name              = 2;
+  string                  biography         = 3;
+  optional FollowGameIds  follow_games      = 4;
+  optional string         profile_icon_path = 5;
+}
+
+message FollowGameIds {
+  repeated telele.type.FollowGameId ids = 1;
+}

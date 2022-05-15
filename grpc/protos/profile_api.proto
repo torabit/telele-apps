@@ -1,0 +1,337 @@
+syntax = "proto3";
+
+package telele.api;
+
+import "telele/type/profile.proto";
+import "telele/type/gender.proto";
+import "telele/type/profile_icon.proto";
+import "telele/type/follow_game.proto";
+import "telele/type/follow_user.proto";
+
+import "google/protobuf/empty.proto";
+import "google/type/date.proto";
+import "google/type/timeofday.proto";
+import "google/type/color.proto";
+
+service ProfileApi {
+  
+  // -------------------------------------------------------------------------
+  // Profile
+  // -------------------------------------------------------------------------
+
+  // ユニークなフィールドを1つ受け取ってProfileを1つ返します
+  rpc GetProfile            (GetProfileRequest)     returns (telele.type.Profile) {}
+  // Profileを作成します。user_id, nameが必須プロパティです
+  rpc CreateProfile         (CreateProfileRequest)  returns (google.protobuf.Empty) {}
+  // ユニークなフィールドを1つ受け取ってProfileを更新します
+  rpc UpdateProfile         (UpdateProfileRequest)  returns (google.protobuf.Empty) {}
+  // ユニークなフィールドを1つ受け取ってProfileを削除します
+  rpc DeleteProfile         (DeleteProfileRequest)  returns (google.protobuf.Empty) {}
+  // ユニークなフィールドを1つ受け取ってProfileにあるold_user_idをnew_user_idへ更新します
+  // user_idを変更したいときに利用してください
+  rpc UpdateUserIdOnProfile (UpdateUserIdOnProfileRequest) returns (google.protobuf.Empty) {}
+
+  // -------------------------------------------------------------------------
+  // ProfileIcon
+  // -------------------------------------------------------------------------
+
+  // profile_idを1つ受け取ってprofile_iconを１つ返します
+  rpc GetProfileIcon (GetProfileIconRequest)        returns (telele.type.ProfileIcon) {}
+  // profile_idとPathを受け取ってprofile_iconを1つ作成します
+  rpc CreateProfileIcon (CreateProfileIconRequest)  returns (google.protobuf.Empty) {}
+  // profile_idとPathを受け取ってprofile_iconを1つ更新します
+  rpc UpdateProfileIcon (UpdateProfileIconRequest)  returns (google.protobuf.Empty) {}
+  // profile_idを受け取ってprofile_iconを1つ削除します
+  rpc DeleteProfileIcon (DeleteProfileIconRequest)  returns (google.protobuf.Empty) {}
+
+  // -------------------------------------------------------------------------
+  // FollowGame
+  // -------------------------------------------------------------------------
+
+  // user_idまたはgame_idを受け取ってFollowGameの配列を返します
+  rpc ListFollowGame (ListFollowGameRequest)      returns (ListFollowGameResponse) {}
+  // user_idとgame_idを受け取ってあたらしいFollowGameを作成します
+  rpc CreateFollowGame (CreateFollowGameRequest)  returns (google.protobuf.Empty) {}
+  // user_idとgame_idから成る結合キーに一致するFollowGameを1つ削除します
+  rpc DeleteFollowGame (DeleteFollowGameRequest)  returns (google.protobuf.Empty) {}
+
+  rpc BatchListFollowGame (BatchListFollowGameRequest) returns (BatchListFollowGameResponse) {}
+
+  // -------------------------------------------------------------------------
+  // FollowUser
+  // -------------------------------------------------------------------------
+
+  // user_idまたはfollow_user_idを受け取ってFollowUserの配列を返します
+  rpc ListFollowUser (ListFollowUserRequest) returns (ListFollowUserResponse) {}
+  // user_idとfollow_user_idを受け取ってあたらしいFollowUserを作成します
+  rpc CreateFollowUser (CreateFollowUserRequest) returns (google.protobuf.Empty) {}
+  // user_idとfollow_user_idから成る結合キーに一致するFollowUserを1つ削除します
+  rpc DeleteFollowUser (DeleteFollowUserRequest) returns (google.protobuf.Empty) {}
+  
+  // -------------------------------------------------------------------------
+  // DogTag
+  // -------------------------------------------------------------------------
+
+  // user_idを受け取ってDogTag単体を返します
+  rpc GetDogTag (GetDogTagRequest) returns (telele.type.DogTag) {}
+  // user_idの配列を受け取ってDogTagの配列を返します
+  rpc ListDogTag (ListDogTagRequest) returns (ListDogTagResponse) {}
+
+  // -------------------------------------------------------------------------
+  // Metadata
+  // -------------------------------------------------------------------------
+
+  // user_idを受け取ってMetadata単体を返します
+  rpc GetUserMetadata (GetUserMetadataRequest) returns (telele.type.UserMetadata) {}
+  // user_idの配列を受け取ってMetadataの配列を返します
+  rpc ListUserMetadata (ListUserMetadataRequest) returns (ListUserMetadataResponse) {}
+}
+
+message IntIds {
+  repeated int32 ids = 1;
+}
+
+message StringIds {
+  repeated string ids = 1;
+}
+
+// -------------------------------------------------------------------------
+// Profile
+// -------------------------------------------------------------------------
+
+/**
+ * - search_optionにある1つのフィールドを検索してProfileを返します
+ *  - profile_id  profile_idを受け取ります、これはユニークなフィールドです
+ *  - user_id     user_idを受け取ります、これはユニークなフィールドです
+ */
+message GetProfileRequest {
+  oneof search_option {
+    string profile_id = 1;
+    string user_id    = 2;
+  }
+}
+
+/**
+ * user_idとnameを受け取ってProfileを作成します
+ * 自動的にユニークなprofile_idが生成されます
+ */
+
+message CreateProfileRequest {
+  string                          user_id        = 1;
+  string                          name           = 2;
+  optional telele.type.Sex             gender_id      = 3;
+  optional google.type.Color      personal_color = 4;
+  optional string                 biography      = 5;
+  optional google.type.Date       birthday       = 6;
+  optional google.type.TimeOfDay  start_time     = 7;
+  optional google.type.TimeOfDay  end_time       = 8;
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してProfileを1つ更新します
+ *  - profile_id  profile_idを受け取ります、これはユニークなフィールドです
+ *  - user_id     user_idを受け取ります、これはユニークなフィールドです
+ */
+message UpdateProfileRequest {
+  oneof search_option {
+    string profile_id = 1;
+    string user_id    = 2;
+  }
+
+  optional string                 name           = 3;
+  optional telele.type.Sex        gender_id      = 4;
+  optional google.type.Color      personal_color = 5;
+  optional string                 biography      = 6;
+  optional google.type.Date       birthday       = 7;
+  optional google.type.TimeOfDay  start_time     = 8;
+  optional google.type.TimeOfDay  end_time       = 9;
+}
+
+/**
+ * - search_optionにある1つのフィールドと一致するProfileを1つ削除します
+ *  - profile_id  profile_idを受け取ります、これはユニークなフィールドです
+ *  - user_id     user_idを受け取ります、これはユニークなフィールドです
+ */
+message DeleteProfileRequest {
+  oneof search_option {
+    string profile_id  = 1;
+    string user_id     = 2;
+  }
+}
+
+/**
+ * - search_optionにある1つのフィールドを検索してuser_idを更新します
+ *  - profile_id      profile_idを受け取ります、これはユニークなフィールドです
+ *  - former_user_id  更新前のuser_idを受け取ります、これはユニークなフィールドです
+ *
+ * - updated_user_id 更新された新しいuser_idを受け取ります
+ */
+message UpdateUserIdOnProfileRequest {
+  oneof search_option {
+    string profile_id     = 1;
+    string former_user_id = 2;
+  }
+  string updated_user_id = 3;
+}
+
+// -------------------------------------------------------------------------
+// ProfileIcon
+// -------------------------------------------------------------------------
+
+/**
+ * - profile_id profile_idを受け取ります、これはユニークなフィールドです
+ */
+message GetProfileIconRequest {
+  string profile_id = 1;
+}
+
+/**
+ * - profile_id profile_idを受け取ります、これはユニークなフィールドです
+ * - path       profile_iconのpathを受け取ります
+ */
+message CreateProfileIconRequest {
+  string profile_id = 1;
+  string path       = 2;
+}
+
+/**
+ * - profile_id profile_idを受け取ります、これはユニークなフィールドです
+ * - path       profile_iconのpathを受け取ります
+ */
+message UpdateProfileIconRequest {
+  string profile_id = 1;
+  string path       = 2;
+}
+
+/**
+ * - profile_id profile_idを受け取ります、これはユニークなフィールドです
+ */
+message DeleteProfileIconRequest {
+  string profile_id = 1;
+}
+
+// -------------------------------------------------------------------------
+// FollowGame
+// -------------------------------------------------------------------------
+
+/**
+ * - search_optionにある1つのフィールドを検索してFollowGameの配列を返します
+ *  - user_id user_idを受け取ります
+ *  - game_id game_idを受け取ります
+ */
+message ListFollowGameRequest {
+  oneof search_option {
+    string  user_id = 1;
+    int32   game_id = 2;
+  }
+}
+message ListFollowGameResponse {
+  repeated telele.type.FollowGame follow_games = 1;
+}
+
+/**
+ * user_idとgame_idを受け取って新しいFollowGameを1つ作成します
+ *  - user_id　user_idを受け取ります
+ *  - game_id　game_idを受け取ります
+ */
+message CreateFollowGameRequest {
+  string  user_id = 1;
+  int32   game_id = 2;
+}
+
+/**
+ * user_idとgame_idを受け取って新しいFollowGameを1つ削除します
+ *  - user_id　user_idを受け取ります
+ *  - game_id　game_idを受け取ります
+ */
+message DeleteFollowGameRequest {
+  string  user_id = 1;
+  int32   game_id = 2;
+}
+
+message BatchListFollowGameRequest {
+  oneof search_option {
+    StringIds user_ids = 1;
+    IntIds    game_ids = 2;
+  }
+}
+
+message BatchListFollowGameResponse {
+  repeated FollowGames list_follow_games = 1;
+}
+message FollowGames {
+  repeated telele.type.FollowGame follow_games = 1;
+}
+
+// -------------------------------------------------------------------------
+// FollowUser
+// -------------------------------------------------------------------------
+
+/**
+ * - search_optionにある1つのフィールドを検索してFollowUserの配列を返します
+ *  - user_id         user_idを受け取ります
+ *  - follow_user_id  follow_user_idを受け取ります
+ */
+message ListFollowUserRequest {
+  oneof search_option {
+    string user_id = 1;
+    string follow_user_id = 2;
+  }
+}
+message ListFollowUserResponse {
+  repeated telele.type.FollowUser follow_users = 1;
+}
+
+/**
+ * user_idとfollow_user_idを受け取って新しいFollowUserを1つ作成します
+ *  - user_id　       user_idを受け取ります
+ *  - follow_user_id　follow_user_idを受け取ります
+ */
+message CreateFollowUserRequest {
+  string user_id        = 1;
+  string follow_user_id = 2;
+}
+
+/**
+ * user_idとfollow_user_idを受け取って新しいFollowUserを1つ削除します
+ *  - user_id　       user_idを受け取ります
+ *  - follow_user_id　follow_user_idを受け取ります
+ */
+message DeleteFollowUserRequest {
+  string user_id        = 1;
+  string follow_user_id = 2;
+}
+
+// -------------------------------------------------------------------------
+// DogTag
+// -------------------------------------------------------------------------
+
+// user_idを受け取ります
+message GetDogTagRequest {
+  string user_id = 1;
+}
+
+// user_idの配列を受け取ってDogTagの配列を返します
+message ListDogTagRequest {
+  repeated string user_ids = 1;
+}
+message ListDogTagResponse {
+  repeated telele.type.DogTag dog_tags = 1;
+}
+
+// -------------------------------------------------------------------------
+// Metadata
+// -------------------------------------------------------------------------
+
+// user_idを受け取ります
+message GetUserMetadataRequest {
+  string user_id = 1;
+}
+
+// user_idの配列を受け取ってMetadataの配列を返します
+message ListUserMetadataRequest {
+  repeated string user_ids = 1;
+}
+message ListUserMetadataResponse {
+  repeated telele.type.UserMetadata userMetadata = 1;
+}

@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../node_modules/@prisma/client_tag"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tag {
+  id            Int         @default(autoincrement()) @id
+  languageCode  String      @db.VarChar(2)
+  name          String      @db.VarChar(32) @unique
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now()) @updatedAt
+  deletedAt     DateTime?
+  tagCategoryId Int
+  tagCategory   TagCategory @relation(fields: [tagCategoryId], references: [id])
+}
+
+model TagCategory {
+  id            Int       @default(autoincrement()) @id
+  languageCode  String    @db.VarChar(2)
+  name          String    @db.VarChar(32) @unique
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  deletedAt     DateTime?
+  tags          Tag []
+}
+
+model GameTag {
+  gameId    Int
+  tagId     Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@id([gameId, tagId])
+}
+
+model UserTag {
+  userId    String    @db.VarChar(16)
+  tagId     Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@id([userId, tagId])
+}
+
+model PartyTag {
+  partyId   Int
+  tagId     Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@id([partyId, tagId])
+
+}
